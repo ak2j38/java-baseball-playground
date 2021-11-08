@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class StringTest {
     @Test
@@ -40,10 +41,12 @@ public class StringTest {
         assertThat(c2).isEqualTo('c');
     }
 
-
     @Test
     @DisplayName("예외 발생시키는 테스트")
-    void makeException(){
-        Character c3 = "abc".charAt(3);
+    void charAt2(){
+        assertThatThrownBy(()->{
+            Character c3 = "abc".charAt(3);
+        }).isInstanceOf(StringIndexOutOfBoundsException.class)
+                .hasMessageContaining("3");
     }
 }

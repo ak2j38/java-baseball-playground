@@ -1,22 +1,36 @@
 package BaseballFeedback;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         NumberGenerator generator = new NumberGenerator();
-        List<Integer> numbers = generator.createRandomNumbers();
-        System.out.println(numbers);
-
-        Judgement jud = new Judgement();
-        int result = jud.correctCount(Arrays.asList(1, 2, 3), Arrays.asList(1, 3, 2));
-        System.out.println(result);
-        System.out.println(jud.hasPlace(Arrays.asList(1,2,3), 1, 1));
+        List<Integer> computerNumbers = generator.createRandomNumbers();
 
         Referee re = new Referee();
-        System.out.println(re.compare(Arrays.asList(1,2,3), Arrays.asList(1,2,3)));
 
+        String result = "";
+        while (!result.equals("3스트라이크")) {
+            result = re.compare(computerNumbers, askNumbers());
+            System.out.println(result);
+        }
+        System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    }
+
+    public static List<Integer> askNumbers()  {
+        System.out.print("숫자를 입력해주세요 : ");
+        Scanner sc = new Scanner(System.in);
+        String playerInput = sc.nextLine();
+
+        List<Integer> playerNumbers = new ArrayList<>();
+
+        for (String number : playerInput.split("")) {
+            playerNumbers.add(Integer.parseInt(number));
+        }
+        return playerNumbers;
     }
 }

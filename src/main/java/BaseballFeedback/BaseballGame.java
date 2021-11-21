@@ -12,16 +12,22 @@ public class BaseballGame {
         NumberGenerator generator = new NumberGenerator();
         Referee re = new Referee();
         boolean isWantMoreGame = true;
+        boolean isNewGame = false;
         List<Integer> computerNumbers = generator.createRandomNumbers();
 
-        while (!isWantMoreGame) {
-            String gameResult = re.compare(computerNumbers, askNumbers());
+        while (isWantMoreGame) {
+            if (isNewGame) {
+                computerNumbers = generator.createRandomNumbers();
+                isNewGame = false;
+            }
 
+            String gameResult = re.compare(computerNumbers, askNumbers());
             MessagePrint.printCompareResult(gameResult);
 
             if (re.isAllMatch(gameResult)) {
                 MessagePrint.printMoreGameMessage();
                 isWantMoreGame = wantMoreGame(sc.nextLine());
+                isNewGame = true;
             }
         }
     }
@@ -43,5 +49,4 @@ public class BaseballGame {
         }
         return playerNumbers;
     }
-
 }

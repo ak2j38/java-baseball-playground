@@ -3,6 +3,8 @@ package BaseballFeedback;
 import java.util.List;
 
 public class Referee {
+    final static int BALL_SIZE = 3;
+    final static String GAME_END_CONDITION = "3스트라이크";
 
     public String compare(List<Integer> computer, List<Integer> player) {
         // 볼의 개수를 먼저 구한 뒤(몇개의 숫자가 같은 뒤 알아낸뒤)
@@ -15,6 +17,7 @@ public class Referee {
                 strikeCount++;
             }
         }
+
         correctCount -= strikeCount;
         if (correctCount ==0 && strikeCount == 0) {
             return String.format("낫싱");
@@ -25,4 +28,9 @@ public class Referee {
         }
         return String.format("%d볼 %d스트라이크", correctCount, strikeCount);
     }
+
+    public boolean isAllMatch(String gameResult) {
+        return gameResult.equals(GAME_END_CONDITION);
+    }
+
 }
